@@ -12,12 +12,20 @@ This repo is cloned from: https://github.com/yowko/docker-compose-redis-cluster,
 ## Usage
 #### Start Redis cluster
 ```bash
+make start
+
+// or
+
 ip=$(ipconfig getifaddr en0) docker-compose up -d --build
 ```
 The redis cluster will be ready on `127.0.0.1:7000`
 
 #### Stop Redis cluster
 ```bash
- docker-compose down -v
+make rm
+
+// or
+
+ip=$(ipconfig getifaddr en0) docker-compose down -v
 ```
 
