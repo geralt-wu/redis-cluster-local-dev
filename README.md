@@ -18,7 +18,7 @@ make start
 
 ip=$(ipconfig getifaddr en0) docker-compose up -d --build
 ```
-The redis cluster will be ready on `127.0.0.1:7000`
+The redis cluster will be ready on `127.0.0.1:6379`
 
 #### Stop Redis cluster
 ```bash
