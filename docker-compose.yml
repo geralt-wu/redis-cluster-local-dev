@@ -5,34 +5,34 @@ services:
     build:
       context: redis
     ports:
-      - "7000:7000"
-      - "17000:17000"
+      - "6379:6379"
+      - "16379:16379"
     restart: always
-    entrypoint: [redis-server, /etc/redis/rediscluster.conf,    --port,"7000", --cluster-announce-ip,"${ip}"]
+    entrypoint: [redis-server, /etc/redis/rediscluster.conf, --port, "6379", --cluster-announce-ip, "${ip}"]
   redis-node2:
     build:
       context: redis
     ports:
-      - "7001:7001"
-      - "17001:17001"
+      - "6380:6380"
+      - "16380:16380"
     restart: always
-    entrypoint: [redis-server, /etc/redis/rediscluster.conf,    --port,"7001",--cluster-announce-ip,"${ip}"]
+    entrypoint: [redis-server, /etc/redis/rediscluster.conf, --port, "6380", --cluster-announce-ip, "${ip}"]
   redis-node3:
     build:
       context: redis
     ports:
-      - "7002:7002"
-      - "17002:17002"
+      - "6381:6381"
+      - "16381:16381"
     restart: always
-    entrypoint: [redis-server, /etc/redis/rediscluster.conf,    --port,"7002",--cluster-announce-ip,"${ip}"]
+    entrypoint: [redis-server, /etc/redis/rediscluster.conf, --port, "6381", --cluster-announce-ip, "${ip}"]
   redis-node4:
     build:
       context: redis
     ports:
-      - "7003:7003"
-      - "17003:17003"
+      - "6382:6382"
+      - "16382:16382"
     restart: always
-    entrypoint: [redis-server, /etc/redis/rediscluster.conf,    --port,"7003",--cluster-announce-ip,"${ip}"]
+    entrypoint: [redis-server, /etc/redis/rediscluster.conf, --port, "6382", --cluster-announce-ip, "${ip}"]
     depends_on:
       - redis-node1
       - redis-node2
@@ -41,10 +41,10 @@ services:
     build:
       context: redis
     ports:
-      - "7004:7004"
-      - "17004:17004"
+      - "6383:6383"
+      - "16383:16383"
     restart: always
-    entrypoint: [redis-server, /etc/redis/rediscluster.conf,    --port,"7004",--cluster-announce-ip,"${ip}"]
+    entrypoint: [redis-server, /etc/redis/rediscluster.conf, --port, "6383", --cluster-announce-ip, "${ip}"]
     depends_on:
       - redis-node1
       - redis-node2
@@ -53,17 +53,17 @@ services:
     build:
       context: redis
     ports:
-      - "7005:7005"
-      - "17005:17005"
+      - "6384:6384"
+      - "16384:16384"
     restart: always
-    entrypoint: [redis-server, /etc/redis/rediscluster.conf,    --port,"7005",--cluster-announce-ip,"${ip}"]
+    entrypoint: [redis-server, /etc/redis/rediscluster.conf, --port, "6384", --cluster-announce-ip, "${ip}"]
     depends_on:
       - redis-node1
       - redis-node2
       - redis-node3
   redis-cluster-creator:
     image: redis:6.0.3
-    entrypoint: [/bin/sh,-c,'echo "yes" | redis-cli --cluster create ${ip}:7000 ${ip}:7001 ${ip}:7002 ${ip}:7003 ${ip}:7004 ${ip}:7005 --cluster-replicas 1']
+    entrypoint: [/bin/sh,-c,'echo "yes" | redis-cli --cluster create ${ip}:6379 ${ip}:6380 ${ip}:6381 ${ip}:6382 ${ip}:6383 ${ip}:6384 --cluster-replicas 1']
     depends_on:
       - redis-node1
       - redis-node2
